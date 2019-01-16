@@ -57,6 +57,21 @@ function onScrollWindow(event) {
     document.body.style.pointerEvents = 'none';
   }
   enablePointerEventsAfterDelay();
+  // console.log(event);
+  // $FlowFixMe
+  const scrollTop = event.target.scrollTop;
+  // $FlowFixMe
+  const scrollHeight = event.target.scrollHeight;
+  // $FlowFixMe
+  const clientHeight = event.target.clientHeight;
+  // // $FlowFixMe
+  // const offsetHeight = event.target.offsetHeight;
+
+  const pos = scrollHeight - clientHeight - scrollTop;
+  console.log(`pos: ${pos}, scrollTop: ${scrollTop}`);
+  if (pos < 0) return;
+  if (scrollTop < 0) return;
+
   mountedInstances.forEach(instance => {
     if (instance.props.scrollElement === event.currentTarget) {
       instance.__handleWindowScrollEvent();
